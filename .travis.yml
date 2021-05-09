@@ -1,0 +1,18 @@
+sudo: required
+#  sudo  권한 필요
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "start Creating an image with dockerfile"
+  - docker build -t aio39/docker-react-app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true -e CI=true aio39/docker-react-app npm run test -- --coverage
+#  -e 옵션을 줘야함.
+
+after_success:
+  - echo "Test Success"
